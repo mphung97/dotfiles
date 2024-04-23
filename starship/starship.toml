@@ -15,7 +15,7 @@ error_symbol = "[✗](bold red)"
 
 [nix_shell]
 symbol = " "
-format = 'via [$symbol]($style)'
+format = 'on [$symbol]($style)'
 
 [nodejs]
 symbol = " "
