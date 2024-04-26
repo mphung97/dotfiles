@@ -14,7 +14,7 @@ error_symbol = "[✗](bold red)"
 '~/tests/starship-custom' = 'work-project'
 
 [nix_shell]
-symbol = " "
+symbol = "📦 "
 format = 'on [$symbol]($style)'
 
 [nodejs]

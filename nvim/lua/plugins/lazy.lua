@@ -87,7 +87,7 @@ require('lazy').setup({
   {
     "nvim-tree/nvim-tree.lua",
     version = "*",
-    lazy = false,
+    lazy = true,
     requires = {
       "nvim-tree/nvim-web-devicons",
     },
