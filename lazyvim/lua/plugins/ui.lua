@@ -1,11 +1,16 @@
 return {
   -- theme
-  { "catppuccin/nvim", name = "catppuccin" },
   {
-    "LazyVim/LazyVim",
+    "folke/tokyonight.nvim",
+    lazy = true,
     opts = {
-      colorscheme = "catppuccin-mocha",
-    }
+      style = "night",
+      transparent = true,
+      styles = {
+        sidebars = "transparent",
+        floats = "transparent",
+      },
+    },
   },
   -- lualine
   {
