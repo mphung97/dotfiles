@@ -10,8 +10,23 @@ return {
         sidebars = "transparent",
         floats = "transparent",
       },
-    },
+    }
   },
+  -- bufferline
+  {
+    "akinsho/bufferline.nvim",
+    keys = {
+      { "<leader>x", "<Cmd>bw<CR>" },
+      { "<Tab>",     "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
+      { "<S-Tab>",   "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
+    },
+    opts = {
+      options = {
+        always_show_bufferline = true
+      }
+    }
+  },
+
   -- lualine
   {
     "nvim-lualine/lualine.nvim",
@@ -88,5 +103,5 @@ return {
       opts.inactive_winbar = {}
       opts.extensions = { "neo-tree", "lazy" }
     end,
-  }
+  },
 }
