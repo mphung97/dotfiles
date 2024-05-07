@@ -1,142 +1,140 @@
-# Path to your oh-my-zsh installation.
-export ZSH=/Users/omerhamerman/.oh-my-zsh
-# Reevaluate the prompt string each time it's displaying a prompt
-setopt prompt_subst
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-autoload bashcompinit && bashcompinit
-autoload -Uz compinit
-compinit
-source <(kubectl completion zsh)
-complete -C '/usr/local/bin/aws_completer' aws
-
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-bindkey '^w' autosuggest-execute
-bindkey '^e' autosuggest-accept
-bindkey '^u' autosuggest-toggle
-bindkey '^L' vi-forward-word
-bindkey '^k' up-line-or-search
-bindkey '^j' down-line-or-search
-
+# initialize apps
+# brew
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# atuin
+if [[ $options[zle] = on ]]; then
+  eval "$(atuin init zsh )"
+fi
+# zoxide
+eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
-export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
+# a script to install a specific version of a formula from homebrew-core
+# USAGE: brew-switch <formula> <version>
+function brew-switch {
+  local _formula=$1
+  local _version=$2
 
-export EDITOR=/opt/homebrew/bin/nvim
+  # fail for missing arguments
+  if [[ -z "$_formula" || -z "$_version" ]]; then
+    echo "USAGE: brew-switch <formula> <version>"
+    return 1
+  fi
 
-alias la=tree
-alias cat=bat
+  # ensure 'gh' is installed
+  if [[ -z "$(command -v gh)" ]]; then
+    echo ">>> ERROR: 'gh' must be installed to run this script"
+    return 1
+  fi
 
-# Git
-alias gc="git commit -m"
-alias gca="git commit -a -m"
-alias gp="git push origin HEAD"
-alias gpu="git pull origin"
-alias gst="git status"
-alias glog="git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit"
-alias gdiff="git diff"
-alias gco="git checkout"
-alias gb='git branch'
-alias gba='git branch -a'
-alias gadd='git add'
-alias ga='git add -p'
-alias gcoall='git checkout -- .'
-alias gr='git remote'
-alias gre='git reset'
+  # find the newest commit for the given formula and version
+  # NOTE: we get the URL, rather than the SHA, because sometimes the commit belongs to an older repo
+  local _commit_url=$(
+    gh search commits \
+      --owner "Homebrew" \
+      --repo "homebrew-core" \
+      --limit 1 \
+      --sort "committer-date" \
+      --order "desc" \
+      --json "url" \
+      --jq ".[0].url" \
+      "\"${_formula}\" \"${_version}\""
+  )
 
-# Docker
-alias dco="docker compose"
-alias dps="docker ps"
-alias dpa="docker ps -a"
-alias dl="docker ps -l -q"
-alias dx="docker exec -it"
+  # fail if no commit was found
+  if [[ -z "$_commit_url" ]]; then
+    echo "ERROR: No commit found for ${_formula}@${_version}"
+    return 1
+  else
+    echo "INFO: Found commit ${_commit_url} for ${_formula}@${_version}"
+  fi
 
-# Dirs
+  # get the 'raw.githubusercontent.com' URL from the commit URL
+  local _raw_url_base=$(
+    echo "$_commit_url" |
+    sed -E 's|github.com/([^/]+)/([^/]+)/commit/(.*)|raw.githubusercontent.com/\1/\2/\3|'
+  )
+
+  local _formula_path="/tmp/${_formula}.rb"
+
+  # download the formula file from the commit
+  echo ""
+  local _repo_path="Formula/${_formula:0:1}/${_formula}.rb"
+  local _raw_url="${_raw_url_base}/${_repo_path}"
+  echo "INFO: Downloading ${_raw_url}"
+  if ! curl -fL "$_raw_url" -o "$_formula_path"; then
+    echo "WARNING: Download failed, trying OLD formula path"
+    echo ""
+    _repo_path="Formula/${_formula}.rb"
+    _raw_url="${_raw_url_base}/${_repo_path}"
+    echo "INFO: Downloading ${_raw_url}"
+    if ! curl -fL "$_raw_url" -o "$_formula_path"; then
+      echo "WARNING: Download failed, trying ANCIENT formula path"
+      echo ""
+      _repo_path="/Library/Formula/${_formula}.rb"
+      _raw_url="${_raw_url_base}/${_repo_path}"
+      echo "INFO: Downloading ${_raw_url}"
+      if ! curl -fL "$_raw_url" -o "$_formula_path"; then
+        echo "ERROR: Failed to download ${_formula} from ${_raw_url}"
+        return 1
+      fi
+    fi
+  fi
+
+  # if the formula is already installed, uninstall it
+  if brew ls --versions "$_formula" >/dev/null; then
+    echo ""
+    echo "WARNING: '$_formula' already installed, do you want to uninstall it? [y/N]"
+    local _reply=$(bash -c "read -n 1 -r && echo \$REPLY")
+    echo ""
+    if [[ $_reply =~ ^[Yy]$ ]]; then
+      echo "INFO: Uninstalling '$_formula'"
+      brew unpin "$_formula"
+      if ! brew uninstall "$_formula"; then
+        echo "ERROR: Failed to uninstall '$_formula'"
+        return 1
+      fi
+    else
+      echo "ERROR: '$_formula' is already installed, aborting"
+      return 1
+    fi
+  fi
+
+  # install the downloaded formula
+  echo "INFO: Installing ${_formula}@${_version} from local file: $_formula_path"
+  brew install --formula "$_formula_path"
+  brew pin "$_formula"
+}
+
+bindkey jj vi-cmd-mode
+
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 
-# GO
-export GOPATH='/Users/omerhamerman/go'
-
-# VIM
-alias v="/opt/homebrew/bin/nvim"
-
-# Nmap
-alias nm="nmap -sC -sV -oN nmap"
-
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/omer/.vimpkg/bin:${GOPATH}/bin:/Users/omerhamerman/.cargo/bin
-
+alias cd='z'
 alias cl='clear'
+alias catp='bat -P'
+alias cat='bat'
+alias ld='eza -lD'
+alias lf='eza -lF --color=always | grep -v /'
+alias lh='eza -dl .* --group-directories-first'
+alias ll='eza -al --group-directories-first'
+alias ls='eza -alF --color=always --sort=size | grep -v /'
+alias lt='eza -al --sort=modified'
+alias gg="lazygit"
 
-# K8S
-export KUBECONFIG=~/.kube/config
-alias k="kubectl"
-alias ka="kubectl apply -f"
-alias kg="kubectl get"
-alias kd="kubectl describe"
-alias kdel="kubectl delete"
-alias kl="kubectl logs"
-alias kgpo="kubectl get pod"
-alias kgd="kubectl get deployments"
-alias kc="kubectx"
-alias kns="kubens"
-alias kl="kubectl logs -f"
-alias ke="kubectl exec -it"
-alias kcns='kubectl config set-context --current --namespace'
-alias podname=''
-
-# HTTP requests with xh!
-alias http="xh"
-
-# VI Mode!!!
-bindkey jj vi-cmd-mode
-
-# Eza
-alias l="eza -l --icons --git -a"
-alias lt="eza --tree --level=2 --long --icons --git"
-
-# SEC STUFF
-alias gobust='gobuster dir --wordlist ~/security/wordlists/diccnoext.txt --wildcard --url'
-alias dirsearch='python dirsearch.py -w db/dicc.txt -b -u'
-alias massdns='~/hacking/tools/massdns/bin/massdns -r ~/hacking/tools/massdns/lists/resolvers.txt -t A -o S bf-targets.txt -w livehosts.txt -s 4000'
-alias server='python -m http.server 4445'
-alias tunnel='ngrok http 4445'
-alias fuzz='ffuf -w ~/hacking/SecLists/content_discovery_all.txt -mc all -u'
-alias gr='~/go/src/github.com/tomnomnom/gf/gf'
-
-# FZF
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export LANG=en_US.UTF-8
 
 export PATH=/opt/homebrew/bin:$PATH
+export EDITOR=/opt/homebrew/bin/nvim
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
-alias mat='osascript -e "tell application \"System Events\" to key code 126 using {command down}" && tmux neww "cmatrix"'
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-function ranger {
-	local IFS=$'\t\n'
-	local tempfile="$(mktemp -t tmp.XXXXXX)"
-	local ranger_cmd=(
-		command
-		ranger
-		--cmd="map Q chain shell echo %d > "$tempfile"; quitall"
-	)
-
-	${ranger_cmd[@]} "$@"
-	if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
-		cd -- "$(cat "$tempfile")" || return
-	fi
-	command rm -f -- "$tempfile" 2>/dev/null
-}
-alias rr='ranger'
-
-# navigation
-cx() { cd "$@" && l; }
-fcd() { cd "$(find . -type d -not -path '*/.*' | fzf)" && l; }
-f() { echo "$(find . -type f -not -path '*/.*' | fzf)" | pbcopy }
-fv() { nvim "$(find . -type f -not -path '*/.*' | fzf)" }
-
-eval "$(zoxide init zsh)"

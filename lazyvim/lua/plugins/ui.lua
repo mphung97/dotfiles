@@ -1,32 +1,41 @@
 return {
   -- theme
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   lazy = true,
+  --   opts = {
+  --     style = "night",
+  --     transparent = true,
+  --     styles = {
+  --       sidebars = "transparent",
+  --       floats = "transparent",
+  --     },
+  --   }
+  -- },
+
+  { "rose-pine/neovim", name = "rose-pine" },
   {
-    "folke/tokyonight.nvim",
-    lazy = true,
+    "LazyVim/LazyVim",
     opts = {
-      style = "night",
-      transparent = true,
-      styles = {
-        sidebars = "transparent",
-        floats = "transparent",
-      },
-    }
+      colorscheme = "rose-pine-main",
+    },
   },
+  { "nvimdev/dashboard-nvim", enabled = false },
 
   -- bufferline
   {
     "akinsho/bufferline.nvim",
     enabled = true,
     keys = {
-      { "<leader>x", "<Cmd>bw<CR>" },
-      { "<Tab>",     "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
-      { "<S-Tab>",   "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
+      { "<leader>x", "<Cmd>bd<CR>" },
+      { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
+      { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
     },
     opts = {
       options = {
-        always_show_bufferline = true
-      }
-    }
+        always_show_bufferline = false,
+      },
+    },
   },
 
   -- filename
@@ -48,8 +57,7 @@ return {
           local ft_icon, ft_color = require("nvim-web-devicons").get_icon_color(filename)
           local modified = vim.bo[props.buf].modified
           local buffer = {
-            ft_icon and { " ", ft_icon, " ", guibg = ft_color, guifg = helpers.contrast_color(ft_color) }
-            or "",
+            ft_icon and { " ", ft_icon, " ", guibg = ft_color, guifg = helpers.contrast_color(ft_color) } or "",
             " ",
             { filename, gui = modified and "bold,italic" or "bold" },
             " ",
@@ -106,7 +114,7 @@ return {
         section_separators = { left = "█", right = "█" },
         disabled_filetypes = {
           inactive_winbar = {},
-          statusline = { "alpha", "dashboard", "fzf", "lazy", "mason", "TelescopePrompt", },
+          statusline = { "alpha", "dashboard", "fzf", "lazy", "mason", "TelescopePrompt" },
           tabline = {},
           winbar = {},
         },
@@ -125,9 +133,9 @@ return {
         lualine_b = { "branch", "diff", "diagnostics" },
         lualine_c = { "filename" },
         lualine_x = {
-          { show_macro_recording, },
-          { "progress",           separator = " ",                  padding = { left = 1, right = 0 } },
-          { "location",           padding = { left = 0, right = 1 } },
+          { show_macro_recording },
+          { "progress", separator = " ", padding = { left = 1, right = 0 } },
+          { "location", padding = { left = 0, right = 1 } },
         },
         lualine_y = { "fileformat", "filetype" },
         lualine_z = { "encoding" },
