@@ -125,13 +125,14 @@ alias ll='eza -al --group-directories-first'
 alias ls='eza -alF --color=always --sort=size | grep -v /'
 alias lt='eza -al --sort=modified'
 alias gg="lazygit"
+alias n="nvim"
 
 export LANG=en_US.UTF-8
 
 export PATH=/opt/homebrew/bin:$PATH
 export EDITOR=/opt/homebrew/bin/nvim
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 # export STARSHIP_CONFIG=~/.config/starship/starship.toml
 

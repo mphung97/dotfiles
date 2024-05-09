@@ -21,7 +21,12 @@ return {
     },
   },
   { "nvimdev/dashboard-nvim", enabled = false },
-
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      window = { position = "float" },
+    },
+  },
   -- bufferline
   {
     "akinsho/bufferline.nvim",

@@ -38,14 +38,9 @@ return {
       local telescope = require("telescope")
       -- local actions = require("telescope.actions")
       -- local fb_actions = require("telescope").extensions.file_browser.actions
-
       opts.pickers = {
-        diagnostics = {
-          theme = "ivy",
-          initial_mode = "normal",
-          layout_config = {
-            preview_cutoff = 9999,
-          },
+        grep_string = {
+          file_ignore_patterns = { "node_modules/*", "pnpm-lock.yaml", "package-lock.json" },
         },
       }
       opts.extensions = {
@@ -55,8 +50,7 @@ return {
         --   hijack_netrw = true,
         --   mappings = {
         --     -- your custom insert mode mappings
-        --     ["n"] = {
-        --     },
+        --     ["n"] = {},
         --   },
         -- },
       }
