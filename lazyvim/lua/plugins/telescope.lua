@@ -6,31 +6,8 @@ return {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
       },
-      -- "nvim-telescope/telescope-file-browser.nvim",
     },
     keys = {
-      -- {
-      --   "sf",
-      --   function()
-      --     local telescope = require("telescope")
-      --
-      --     -- local function telescope_buffer_dir()
-      --     --   return vim.fn.expand("%:p:h")
-      --     -- end
-      --
-      --     telescope.extensions.file_browser.file_browser({
-      --       path = "%:p:h",
-      --       -- cwd = telescope_buffer_dir(),
-      --       respect_gitignore = false,
-      --       hidden = true,
-      --       grouped = true,
-      --       previewer = false,
-      --       initial_mode = "normal",
-      --       layout_config = { height = 40, prompt_position = "top" },
-      --     })
-      --   end,
-      --   desc = "Open File Browser with the path of the current buffer",
-      -- },
       { "[b", false },
       { "]b", false },
     },
@@ -38,6 +15,26 @@ return {
       local telescope = require("telescope")
       -- local actions = require("telescope.actions")
       -- local fb_actions = require("telescope").extensions.file_browser.actions
+      --
+      opts.defaults = vim.tbl_deep_extend("force", opts.defaults, {
+        wrap_results = true,
+        prompt_prefix = "   ",
+        layout_strategy = "horizontal",
+        layout_config = { prompt_position = "top" },
+        sorting_strategy = "ascending",
+        file_ignore_patterns = { "node_modules", "package-lock.json" },
+        winblend = 0,
+        vimgrep_arguments = {
+          "rg",
+          "-L",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+        },
+      })
       opts.pickers = {
         grep_string = {
           file_ignore_patterns = { "node_modules/*", "pnpm-lock.yaml", "package-lock.json" },

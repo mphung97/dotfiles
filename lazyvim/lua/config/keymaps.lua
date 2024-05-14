@@ -4,7 +4,6 @@
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
-
 -- New tab
 -- keymap.set("n", "te", ":tabedit")
 -- keymap.set("n", "<tab>", ":tabnext<Return>", opts)
@@ -15,6 +14,9 @@ keymap.set("n", "sv", ":vsplit<Return>", opts)
 
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
+
+-- Esc
+keymap.set("i", "jj", "<ESC>", opts)
 
 keymap.del("n", "<S-h>")
 keymap.del("n", "<S-l>")
