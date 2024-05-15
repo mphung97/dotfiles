@@ -18,7 +18,7 @@ keymap.set("n", "<C-a>", "gg<S-v>G")
 -- Esc
 keymap.set("i", "jj", "<ESC>", opts)
 
-keymap.del("n", "<S-h>")
-keymap.del("n", "<S-l>")
+-- keymap.del("n", "<S-h>")
+-- keymap.del("n", "<S-l>")
 -- keymap.del("n", "<[b>")
 -- keymap.del("n", "<]b>")

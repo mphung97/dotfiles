@@ -13,7 +13,7 @@ return {
     },
     config = function(_, opts)
       local telescope = require("telescope")
-      -- local actions = require("telescope.actions")
+      local actions = require("telescope.actions")
       -- local fb_actions = require("telescope").extensions.file_browser.actions
       --
       opts.defaults = vim.tbl_deep_extend("force", opts.defaults, {
@@ -38,6 +38,24 @@ return {
       opts.pickers = {
         grep_string = {
           file_ignore_patterns = { "node_modules/*", "pnpm-lock.yaml", "package-lock.json" },
+        },
+        buffers = {
+          mappings = {
+            i = {
+              ["<c-d>"] = actions.delete_buffer,
+            },
+            n = {
+              ["<c-d>"] = actions.delete_buffer,
+            },
+          },
+          previewer = false,
+          initial_mode = "normal",
+          layout_config = {
+            height = 0.4,
+            width = 0.6,
+            prompt_position = "top",
+            preview_cutoff = 120,
+          },
         },
       }
       opts.extensions = {
