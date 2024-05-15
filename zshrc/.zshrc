@@ -121,9 +121,12 @@ alias cat='bat'
 alias ld='eza -lD'
 alias lf='eza -lF --color=always | grep -v /'
 alias lh='eza -dl .* --group-directories-first'
-alias ll='eza -al --group-directories-first'
-alias ls='eza -alF --color=always --sort=size | grep -v /'
-alias lt='eza -al --sort=modified'
+# alias ll='eza -al --group-directories-first'
+# alias ls='eza -alF --color=always --sort=size | grep -v /'
+# alias lt='eza -al --sort=modified'
+alias ls="eza --icons -F -H --group-directories-first --git -1"
+alias ll="ls -alF"
+alias lt="eza --tree --icons -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
 alias gg="lazygit"
 alias n="nvim"
 

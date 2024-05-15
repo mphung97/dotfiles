@@ -72,7 +72,7 @@ return {
         lualine_c = {
           {
             "buffers",
-            mode = 0,
+            mode = 1,
             hide_filename_extension = true,
             use_mode_colors = true,
             symbols = {
