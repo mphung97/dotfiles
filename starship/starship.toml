@@ -1,6 +1,16 @@
 add_newline = false
 # A minimal left prompt
-format = """$directory$all$character"""
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$cmd_duration\
+$line_break\
+$character"""
+
 palette = "catppuccin_mocha"
 # move the rest of the prompt to the right
 # right_format = """$all"""
@@ -37,6 +47,7 @@ symbol = " "
 
 [directory]
 read_only = " 󰌾"
+truncation_length = 1
 
 [docker_context]
 symbol = " "

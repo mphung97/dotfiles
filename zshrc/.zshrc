@@ -1,6 +1,8 @@
 # initialize apps
 # brew
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 # atuin
 if [[ $options[zle] = on ]]; then
   eval "$(atuin init zsh )"
