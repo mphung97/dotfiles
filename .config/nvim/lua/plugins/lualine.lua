@@ -38,7 +38,7 @@ return {
       opts.options = {
         icons_enabled = true,
         theme = "auto",
-        component_separators = { left = "⎪", right = "⎪" },
+        component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
         disabled_filetypes = {
           inactive_winbar = {},
@@ -66,13 +66,11 @@ return {
               mac = "",
             },
           },
-          { "mode" },
         },
-        lualine_b = { "branch", "diagnostics" },
-        lualine_c = {
+        lualine_b = {
           {
             "buffers",
-            mode = 1,
+            mode = 0,
             hide_filename_extension = true,
             use_mode_colors = true,
             symbols = {
@@ -81,7 +79,9 @@ return {
               directory = "", -- Text to show when the buffer is a directory
             },
           },
-
+          -- "branch",
+        },
+        lualine_c = {
           -- {
           --   "filename",
           --   symbols = {
@@ -94,14 +94,18 @@ return {
         },
         lualine_x = {
           { show_macro_recording },
-          { "searchcount", maxcount = 999, timeout = 500 },
+          "diagnostics",
           { "diff", symbols = { added = " ", modified = " ", removed = " " } },
+          { "searchcount", maxcount = 999, timeout = 500 },
           { "location", padding = { left = 0, right = 1 } },
         },
         lualine_y = {
-          { "filetype", icon_only = true },
+          { "mode" },
         },
-        lualine_z = { "encoding" },
+        lualine_z = {
+          -- { "filetype", icon_only = true },
+          "encoding",
+        },
       }
 
       opts.tabline = {}
