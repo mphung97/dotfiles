@@ -1,5 +1,4 @@
 return {
-  { "rose-pine/neovim", name = "rose-pine" },
   {
     "catppuccin/nvim",
     lazy = true,
@@ -13,9 +12,12 @@ return {
       transparent_background = false,
       color_overrides = {
         mocha = {
-          red = "#eb6f92",
+          red = "#fe6e7f",
+          blue = "#78d9ff",
           lavender = "#e0def4",
           text = "#e0def4",
+          base = "#181825",
+          mantle = "#1e1e2e",
         },
       },
       integrations = {
