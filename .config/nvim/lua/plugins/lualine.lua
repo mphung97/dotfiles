@@ -70,9 +70,10 @@ return {
         lualine_b = {
           {
             "buffers",
-            mode = 0,
+            mode = 1,
             hide_filename_extension = true,
             use_mode_colors = true,
+            show_modified_status = false,
             symbols = {
               modified = " ●", -- Text to show when the buffer is modified
               alternate_file = "", -- Text to show to identify the alternate file
@@ -82,15 +83,15 @@ return {
           -- "branch",
         },
         lualine_c = {
-          -- {
-          --   "filename",
-          --   symbols = {
-          --     modified = "",
-          --     readonly = "",
-          --     unnamed = "[No Name]",
-          --     newfile = "",
-          --   },
-          -- },
+          {
+            "filename",
+            symbols = {
+              modified = "",
+              readonly = "",
+              unnamed = "[No Name]",
+              newfile = "",
+            },
+          },
         },
         lualine_x = {
           { show_macro_recording },
