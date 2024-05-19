@@ -23,7 +23,7 @@ return {
             hidden = true,
             grouped = true,
             previewer = false,
-            layout_config = { height = 40 },
+            layout_config = { height = 0.7, width = 0.5 },
           })
         end,
         desc = "Open File Browser with the path of the current buffer",
@@ -78,7 +78,6 @@ return {
       }
       opts.extensions = {
         file_browser = {
-          theme = "dropdown",
           git_status = false,
           -- disables netrw and use telescope-file-browser in its place
           hijack_netrw = true,
