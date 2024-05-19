@@ -66,11 +66,50 @@ return {
               mac = "",
             },
           },
+          { "mode" },
         },
         lualine_b = {
           {
+            "filetype",
+            icon_only = false,
+            icon = { align = "right" },
+          },
+        },
+        lualine_c = {
+          {
+            "filename",
+            symbols = {
+              modified = "●",
+              readonly = "",
+              unnamed = "[No Name]",
+              newfile = "",
+            },
+          },
+          {
+            function()
+              return require("nvim-navic").get_location()
+            end,
+            cond = function()
+              return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+            end,
+          },
+        },
+        lualine_x = {
+          { show_macro_recording },
+          "diagnostics",
+          {
+            "diff",
+            symbols = { added = " ", modified = " ", removed = " " },
+          },
+          { "searchcount", maxcount = 999, timeout = 500 },
+          { "location", padding = { left = 0, right = 1 } },
+        },
+        lualine_y = {
+          -- { "mode" },
+          {
             "buffers",
             mode = 1,
+            icons_enabled = false,
             hide_filename_extension = true,
             use_mode_colors = true,
             show_modified_status = false,
@@ -79,33 +118,11 @@ return {
               alternate_file = "", -- Text to show to identify the alternate file
               directory = "", -- Text to show when the buffer is a directory
             },
+            section_separators = { left = "", right = "█" },
           },
-          -- "branch",
-        },
-        lualine_c = {
-          {
-            "filename",
-            symbols = {
-              modified = "",
-              readonly = "",
-              unnamed = "[No Name]",
-              newfile = "",
-            },
-          },
-        },
-        lualine_x = {
-          { show_macro_recording },
-          "diagnostics",
-          { "diff", symbols = { added = " ", modified = " ", removed = " " } },
-          { "searchcount", maxcount = 999, timeout = 500 },
-          { "location", padding = { left = 0, right = 1 } },
-        },
-        lualine_y = {
-          { "mode" },
         },
         lualine_z = {
-          -- { "filetype", icon_only = true },
-          "encoding",
+          { "encoding" },
         },
       }
 

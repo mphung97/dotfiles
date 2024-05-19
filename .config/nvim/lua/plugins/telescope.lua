@@ -6,10 +6,28 @@ return {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
       },
+      { "nvim-telescope/telescope-file-browser.nvim" },
     },
     keys = {
       { "[b", false },
       { "]b", false },
+      {
+        "<leader>/",
+        function()
+          local telescope = require("telescope")
+
+          telescope.extensions.file_browser.file_browser({
+            path = "%:p:h",
+            select_buffer = true,
+            respect_gitignore = false,
+            hidden = true,
+            grouped = true,
+            previewer = false,
+            layout_config = { height = 40 },
+          })
+        end,
+        desc = "Open File Browser with the path of the current buffer",
+      },
     },
     config = function(_, opts)
       local telescope = require("telescope")
@@ -22,22 +40,22 @@ return {
         layout_strategy = "horizontal",
         layout_config = { prompt_position = "top" },
         sorting_strategy = "ascending",
-        file_ignore_patterns = { "node_modules", "package-lock.json" },
+        file_ignore_patterns = { "node_modules/*", "package-lock.json" },
         winblend = 0,
-        vimgrep_arguments = {
-          "rg",
-          "-L",
-          "--color=never",
-          "--no-heading",
-          "--with-filename",
-          "--line-number",
-          "--column",
-          "--smart-case",
-        },
+        -- vimgrep_arguments = {
+        --   "rg",
+        --   "-L",
+        --   "--color=never",
+        --   "--no-heading",
+        --   "--with-filename",
+        --   "--line-number",
+        --   "--column",
+        --   "--smart-case",
+        -- },
       })
       opts.pickers = {
         grep_string = {
-          file_ignore_patterns = { "node_modules/*", "pnpm-lock.yaml", "package-lock.json" },
+          file_ignore_patterns = {},
         },
         buffers = {
           mappings = {
@@ -59,19 +77,21 @@ return {
         },
       }
       opts.extensions = {
-        -- file_browser = {
-        --   -- theme = "dropdown",
-        --   -- disables netrw and use telescope-file-browser in its place
-        --   hijack_netrw = true,
-        --   mappings = {
-        --     -- your custom insert mode mappings
-        --     ["n"] = {},
-        --   },
-        -- },
+        file_browser = {
+          theme = "dropdown",
+          git_status = false,
+          -- disables netrw and use telescope-file-browser in its place
+          hijack_netrw = true,
+          mappings = {
+            ["i"] = {},
+            ["n"] = {},
+          },
+          dir_icon = "",
+        },
       }
       telescope.setup(opts)
       require("telescope").load_extension("fzf")
-      -- require("telescope").load_extension("file_browser")
+      require("telescope").load_extension("file_browser")
     end,
   },
 }

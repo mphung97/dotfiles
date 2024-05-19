@@ -123,14 +123,11 @@ alias cat='bat'
 alias ld='eza -lD'
 alias lf='eza -lF --color=always | grep -v /'
 alias lh='eza -dl .* --group-directories-first'
-# alias ll='eza -al --group-directories-first'
-# alias ls='eza -alF --color=always --sort=size | grep -v /'
-# alias lt='eza -al --sort=modified'
 alias ls="eza --icons -F -H --group-directories-first --git -1"
 alias ll="ls -alF"
 alias lt="eza --tree --icons -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
 alias gg="lazygit"
-alias n="nvim"
+alias v="fd --type f --hidden --exclude .git | fzf-tmux -p 80%,60% --reverse | xargs nvim"
 
 export LANG=en_US.UTF-8
 
@@ -139,7 +136,13 @@ export EDITOR=/opt/homebrew/bin/nvim
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-# export STARSHIP_CONFIG=~/.config/starship/starship.toml
+
+export FZF_DEFAULT_OPTS="
+	--color=fg:#908caa,bg:#191724,hl:#ebbcba
+	--color=fg+:#e0def4,bg+:#26233a,hl+:#ebbcba
+	--color=border:#403d52,header:#31748f,gutter:#191724
+	--color=spinner:#f6c177,info:#9ccfd8,separator:#403d52
+	--color=pointer:#c4a7e7,marker:#eb6f92,prompt:#908caa"
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
