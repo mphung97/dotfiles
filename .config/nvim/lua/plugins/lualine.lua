@@ -38,7 +38,7 @@ return {
       opts.options = {
         icons_enabled = true,
         theme = "auto",
-        component_separators = { left = "", right = "" },
+        component_separators = { left = "", right = "│" },
         section_separators = { left = "", right = "" },
         disabled_filetypes = {
           inactive_winbar = {},
@@ -58,22 +58,26 @@ return {
 
       opts.sections = {
         lualine_a = {
-          {
-            "fileformat",
-            symbols = {
-              unix = "󰌽",
-              dos = "",
-              mac = "",
-            },
-          },
-          { "mode" },
+          -- {
+          --   "fileformat",
+          --   symbols = {
+          --     unix = "󰌽",
+          --     dos = "",
+          --     mac = "",
+          --   },
+          -- },
+          -- {
+          --   "mode",
+          -- },
+          { require("mphung97.fancy_mode") },
         },
         lualine_b = {
-          {
-            "filetype",
-            icon_only = false,
-            icon = { align = "right" },
-          },
+          -- {
+          --   "filetype",
+          --   icon_only = false,
+          --   icon = { align = "right" },
+          -- },
+          { require("mphung97.fancy_branch") },
         },
         lualine_c = {
           {
@@ -102,7 +106,8 @@ return {
             symbols = { added = " ", modified = " ", removed = " " },
           },
           { "searchcount", maxcount = 999, timeout = 500 },
-          { "location", padding = { left = 0, right = 1 } },
+          -- { "location", padding = { left = 0, right = 1 } },
+          { require("mphung97.fancy_location") },
         },
         lualine_y = {
           -- { "mode" },
@@ -122,7 +127,9 @@ return {
           },
         },
         lualine_z = {
-          { "encoding" },
+          -- { "branch" },
+          { require("mphung97.fancy_filetype") },
+          -- { "encoding" },
         },
       }
 
