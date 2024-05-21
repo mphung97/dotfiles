@@ -80,15 +80,17 @@ return {
           { require("mphung97.fancy_branch") },
         },
         lualine_c = {
-          {
-            "filename",
-            symbols = {
-              modified = "●",
-              readonly = "",
-              unnamed = "[No Name]",
-              newfile = "",
-            },
-          },
+          -- {
+          --   "filename",
+          --   path = 4,
+          --   symbols = {
+          --     modified = "●",
+          --     readonly = "",
+          --     unnamed = "[No Name]",
+          --     newfile = "",
+          --   },
+          -- },
+          { require("mphung97.fancy_cwd") },
           {
             function()
               return require("nvim-navic").get_location()
@@ -107,7 +109,8 @@ return {
           },
           { "searchcount", maxcount = 999, timeout = 500 },
           -- { "location", padding = { left = 0, right = 1 } },
-          { require("mphung97.fancy_location") },
+          { "encoding" },
+          { require("mphung97.fancy_filetype") },
         },
         lualine_y = {
           -- { "mode" },
@@ -117,7 +120,7 @@ return {
             icons_enabled = false,
             hide_filename_extension = true,
             use_mode_colors = true,
-            show_modified_status = false,
+            show_modified_status = true,
             symbols = {
               modified = " ●", -- Text to show when the buffer is modified
               alternate_file = "", -- Text to show to identify the alternate file
@@ -128,8 +131,7 @@ return {
         },
         lualine_z = {
           -- { "branch" },
-          { require("mphung97.fancy_filetype") },
-          -- { "encoding" },
+          { require("mphung97.fancy_location") },
         },
       }
 
