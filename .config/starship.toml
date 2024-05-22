@@ -17,8 +17,9 @@ palette = "catppuccin_mocha"
 command_timeout = 1000
 
 [character]
-success_symbol = "[➜](bold green)"
-error_symbol = "[✗](bold red)"
+success_symbol = "[󱙺](green)"
+error_symbol = "[󱚢](red)"
+vimcmd_symbol = "[󱚠](blue)"
 
 [directory.substitutions]
 '~/tests/starship-custom' = 'work-project'
@@ -48,6 +49,7 @@ symbol = " "
 [directory]
 read_only = " 󰌾"
 truncation_length = 1
+style = 'bold blue'
 
 [docker_context]
 symbol = " "
