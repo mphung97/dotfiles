@@ -37,7 +37,7 @@ return {
 
       opts.options = {
         icons_enabled = true,
-        theme = "auto",
+        theme = "catppuccin",
         component_separators = { left = "", right = "│" },
         section_separators = { left = "", right = "" },
         disabled_filetypes = {
@@ -83,7 +83,7 @@ return {
           {
             "filename",
             path = 4,
-            file_status = false,
+            file_status = true,
             symbols = {
               modified = "●",
               readonly = "",
@@ -115,20 +115,20 @@ return {
         },
         lualine_y = {
           -- { "mode" },
-          {
-            "buffers",
-            mode = 1,
-            icons_enabled = false,
-            hide_filename_extension = true,
-            use_mode_colors = true,
-            show_modified_status = true,
-            symbols = {
-              modified = " ●", -- Text to show when the buffer is modified
-              alternate_file = "", -- Text to show to identify the alternate file
-              directory = "", -- Text to show when the buffer is a directory
-            },
-            section_separators = { left = "", right = "█" },
-          },
+          -- {
+          --   "buffers",
+          --   mode = 1,
+          --   icons_enabled = false,
+          --   hide_filename_extension = true,
+          --   use_mode_colors = true,
+          --   show_modified_status = true,
+          --   symbols = {
+          --     modified = " ●", -- Text to show when the buffer is modified
+          --     alternate_file = "", -- Text to show to identify the alternate file
+          --     directory = "", -- Text to show when the buffer is a directory
+          --   },
+          --   section_separators = { left = "", right = "█" },
+          -- },
         },
         lualine_z = {
           -- { "branch" },
