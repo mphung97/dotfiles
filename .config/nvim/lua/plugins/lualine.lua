@@ -80,17 +80,18 @@ return {
           { require("mphung97.fancy_branch") },
         },
         lualine_c = {
-          -- {
-          --   "filename",
-          --   path = 4,
-          --   symbols = {
-          --     modified = "●",
-          --     readonly = "",
-          --     unnamed = "[No Name]",
-          --     newfile = "",
-          --   },
-          -- },
-          { require("mphung97.fancy_cwd") },
+          {
+            "filename",
+            path = 4,
+            file_status = false,
+            symbols = {
+              modified = "●",
+              readonly = "",
+              unnamed = "[No Name]",
+              newfile = "",
+            },
+          },
+          -- { require("mphung97.fancy_cwd") },
           {
             function()
               return require("nvim-navic").get_location()
