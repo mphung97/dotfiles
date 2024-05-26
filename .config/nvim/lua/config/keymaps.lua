@@ -15,8 +15,6 @@ keymap.set("n", "sv", ":vsplit<Return>", opts)
 -- Select all
 keymap.set("n", "<leader>a", "gg<S-v>G")
 
-keymap.set("n", "<leader>bdo", "<cmd>%bd|e#|bd#<cr>")
-
 -- Esc
 keymap.set("i", "jj", "<ESC>", opts)
 

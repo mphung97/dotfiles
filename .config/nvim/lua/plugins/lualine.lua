@@ -82,7 +82,6 @@ return {
         lualine_c = {
           {
             "filename",
-            path = 4,
             file_status = true,
             symbols = {
               modified = "●",

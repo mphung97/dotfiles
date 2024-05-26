@@ -1,7 +1,7 @@
 return {
   {
     "b0o/incline.nvim",
-    enabled = true,
+    enabled = false,
     dependencies = {
       "SmiteshP/nvim-navic",
       "nvim-tree/nvim-web-devicons", -- optional dependency
