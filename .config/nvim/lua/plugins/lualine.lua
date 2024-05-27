@@ -1,7 +1,7 @@
 return {
   {
     "nvim-lualine/lualine.nvim",
-    enabled = true,
+    enabled = false,
     event = { "BufReadPost", "BufNewFile" },
     opts = function(_, opts)
       local function show_macro_recording()

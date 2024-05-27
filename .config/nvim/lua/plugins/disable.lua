@@ -4,4 +4,8 @@ return {
     enabled = false,
     "folke/flash.nvim",
   },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    enabled = false,
+  },
 }

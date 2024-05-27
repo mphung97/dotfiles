@@ -1,7 +1,7 @@
 return {
   {
     "akinsho/bufferline.nvim",
-    enabled = true,
+    enabled = false,
     keys = {
       { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
       { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },

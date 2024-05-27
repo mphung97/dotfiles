@@ -55,6 +55,11 @@ return {
       })
       opts.pickers = {
         grep_string = {
+          previewer = false,
+          file_ignore_patterns = {},
+        },
+        live_grep = {
+          previewer = false,
           file_ignore_patterns = {},
         },
         buffers = {
