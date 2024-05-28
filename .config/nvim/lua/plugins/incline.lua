@@ -85,6 +85,7 @@ return {
 
           local function get_file_name()
             local label = {}
+
             table.insert(label, { (ft_icon or "") .. " ", guifg = ft_color, guibg = "none" })
             table.insert(label, { vim.bo[props.buf].modified and " " or "", guifg = "#d19a66" })
             table.insert(label, { filename, gui = vim.bo[props.buf].modified and "bold,italic" or "bold" })
@@ -95,7 +96,20 @@ return {
             return label
           end
 
-          local bg_color = "#11111b"
+          local function get_location()
+            local label = {}
+            local line = vim.fn.line(".")
+            local col = vim.fn.virtcol(".")
+            local location = string.format("%2d:%-2d", line, col)
+
+            table.insert(label, { "  " })
+            table.insert(label, { location .. " " })
+            table.insert(label, { " ", guifg = "#f38ba8" })
+
+            return label
+          end
+
+          local bg_color = "#000000"
 
           return {
             { "█", guifg = bg_color },
@@ -104,6 +118,7 @@ return {
               { get_git_diff() },
               { get_harpoon_items() },
               { get_file_name() },
+              { get_location() },
               guibg = bg_color,
             },
             { "█", guifg = bg_color },
