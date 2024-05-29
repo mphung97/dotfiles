@@ -12,8 +12,13 @@ return {
       transparent_background = false,
       color_overrides = {
         mocha = {
-          -- red = "#fe6e7f",
-          -- blue = "#78d9ff",
+          red = "#e84855",
+          blue = "#5677fc",
+          pink = "#ff5d8f",
+          peach = "#f0aa85",
+          yellow = "#ffe066",
+          green = "#23d18c",
+          sapphire = "#00cecb",
           lavender = "#e0def4",
           text = "#e0def4",
           base = "#181825",
