@@ -5,6 +5,5 @@ vim.g.autoformat = false
 
 vim.opt.clipboard = "unnamedplus"
 vim.opt.relativenumber = false
-vim.opt.number = false
 vim.opt.laststatus = 0
 vim.opt.cmdheight = 0

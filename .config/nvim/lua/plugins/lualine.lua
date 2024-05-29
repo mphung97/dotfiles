@@ -69,7 +69,6 @@ return {
           -- {
           --   "mode",
           -- },
-          { require("mphung97.fancy_mode") },
         },
         lualine_b = {
           -- {
@@ -77,7 +76,6 @@ return {
           --   icon_only = false,
           --   icon = { align = "right" },
           -- },
-          { require("mphung97.fancy_branch") },
         },
         lualine_c = {
           {
@@ -110,7 +108,6 @@ return {
           { "searchcount", maxcount = 999, timeout = 500 },
           -- { "location", padding = { left = 0, right = 1 } },
           { "encoding" },
-          { require("mphung97.fancy_filetype") },
         },
         lualine_y = {
           -- { "mode" },
@@ -131,7 +128,6 @@ return {
         },
         lualine_z = {
           -- { "branch" },
-          { require("mphung97.fancy_location") },
         },
       }
 
