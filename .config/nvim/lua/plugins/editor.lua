@@ -4,6 +4,14 @@ return {
     opts = {
       window = { position = "float" },
       default_component_configs = {
+        indent = {
+          with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+          indent_marker = "│",
+          last_indent_marker = "╰",
+          expander_collapsed = "",
+          expander_expanded = "",
+          expander_highlight = "NeoTreeExpander",
+        },
         modified = {
           symbol = "󰈚",
           highlight = "NeoTreeModified",
@@ -157,5 +165,5 @@ return {
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("file_browser")
     end,
-  }
+  },
 }
