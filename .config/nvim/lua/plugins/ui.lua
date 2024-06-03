@@ -305,11 +305,76 @@ return {
             return label
           end
 
+          local function get_mode()
+            local label = {}
+            local mode_code = vim.api.nvim_get_mode().mode
+            -- copy from lualine https://github.com/nvim-lualine/lualine.nvim/blob/master/lua/lualine/utils/mode.lua
+            local mode_map = {
+              ["n"] = "NORMAL",
+              ["no"] = "O-PENDING",
+              ["nov"] = "O-PENDING",
+              ["noV"] = "O-PENDING",
+              ["no\22"] = "O-PENDING",
+              ["niI"] = "NORMAL",
+              ["niR"] = "NORMAL",
+              ["niV"] = "NORMAL",
+              ["nt"] = "NORMAL",
+              ["ntT"] = "NORMAL",
+              ["v"] = "VISUAL",
+              ["vs"] = "VISUAL",
+              ["V"] = "V-LINE",
+              ["Vs"] = "V-LINE",
+              ["\22"] = "V-BLOCK",
+              ["\22s"] = "V-BLOCK",
+              ["s"] = "SELECT",
+              ["S"] = "S-LINE",
+              ["\19"] = "S-BLOCK",
+              ["i"] = "INSERT",
+              ["ic"] = "INSERT",
+              ["ix"] = "INSERT",
+              ["R"] = "REPLACE",
+              ["Rc"] = "REPLACE",
+              ["Rx"] = "REPLACE",
+              ["Rv"] = "V-REPLACE",
+              ["Rvc"] = "V-REPLACE",
+              ["Rvx"] = "V-REPLACE",
+              ["c"] = "COMMAND",
+              ["cv"] = "EX",
+              ["ce"] = "EX",
+              ["r"] = "REPLACE",
+              ["rm"] = "MORE",
+              ["r?"] = "CONFIRM",
+              ["!"] = "SHELL",
+              ["t"] = "TERMINAL",
+            }
+
+            local icon_map = {
+              ["NORMAL"] = "󰬕",
+              ["INSERT"] = "󰬐",
+              ["VISUAL"] = "󰬝",
+              ["REPLACE"] = "󰬙",
+              ["TERMINAL"] = "󰬛",
+              ["COMMAND"] = "󰬊"
+            }
+
+            -- if mode_map[mode_code] ~= nil then
+            if icon_map[mode_map[mode_code]] ~= nil then
+              -- table.insert(label, { string.sub(mode_map[mode_code], 1, 1) })
+              table.insert(label, { icon_map[mode_map[mode_code]] })
+            else
+              table.insert(label, { mode_code })
+            end
+            table.insert(label, { "  " })
+
+            return label
+          end
+
           local bg_color = "#000000"
 
           return {
             { "█", guifg = bg_color },
             {
+              { get_mode() },
               { get_diagnostic_label() },
               { get_git_diff() },
               { get_harpoon_items() },
