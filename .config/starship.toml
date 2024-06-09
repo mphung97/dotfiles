@@ -1,32 +1,50 @@
-add_newline = false
-# A minimal left prompt
-format = """
-$username\
-$hostname\
-$directory\
-$git_branch\
-$git_state\
-$git_status\
-$cmd_duration\
-$line_break\
-$character"""
-
-palette = "catppuccin_mocha"
-# move the rest of the prompt to the right
-# right_format = """$all"""
+add_newline = true
 command_timeout = 1000
 
-[character]
-success_symbol = "[](green)"
-error_symbol = "[](red)"
-vimcmd_symbol = "[](blue)"
+format = """$env_var$os$username$hostname$kubernetes$directory$git_branch$git_status
+$character
+"""
 
-[directory.substitutions]
-'~/tests/starship-custom' = 'work-project'
+[character]
+success_symbol = "╰─"
+error_symbol = "╰─"
+vimcmd_symbol = "╰─"
+# ╭╴ ╰─
+# [character]
+# success_symbol = "[](green)"
+# error_symbol = "[](red)"
+# vimcmd_symbol = "[](blue)"
+
+[env_var]
+symbol = "╭╴"
+variable = 'SHELL'
+format = "$symbol"
+disabled = false
+
+# add_newline = false
+# A minimal left prompt
+# format = """
+# $username\
+# $hostname\
+# $directory\
+# $git_branch\
+# $git_state\
+# $git_status\
+# $cmd_duration\
+# $line_break\
+# $character"""
+
+# palette = "catppuccin_mocha"
+# move the rest of the prompt to the right
+# right_format = """$all"""
+
+[os]
+format = "[$symbol](bold white)" 
+disabled = false
 
 [nix_shell]
 symbol = " "
-format = 'on [$symbol]($style)'
+format = "on [$symbol]($style)"
 
 [aws]
 symbol = "  "
@@ -153,8 +171,8 @@ RockyLinux = " "
 Redox = "󰀘 "
 Solus = "󰠳 "
 SUSE = " "
-Ubuntu = " "
-Unknown = " "
+Ubuntu = "󰢚 "
+Unknown = "󰀥 "
 Void = " "
 Windows = "󰍲 "
 

@@ -15,7 +15,7 @@ return {
   },
   {
     "nvim-lualine/lualine.nvim",
-    enabled = false,
+    enabled = true,
     event = { "BufReadPost", "BufNewFile" },
     opts = function(_, opts)
       local function show_macro_recording()
@@ -80,9 +80,12 @@ return {
           --     mac = "",
           --   },
           -- },
-          -- {
-          --   "mode",
-          -- },
+          {
+            "mode",
+            fmt = function(str)
+              return string.lower(str):sub(1, 1)
+            end,
+          },
         },
         lualine_b = {
           -- {
@@ -92,9 +95,22 @@ return {
           -- },
         },
         lualine_c = {
+          { "branch", icon = { "", color = { fg = "#e84855" } } },
+          -- {
+          --   function()
+          --     return require("nvim-navic").get_location()
+          --   end,
+          --   cond = function()
+          --     return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+          --   end,
+          -- },
+        },
+        lualine_x = {
+          { show_macro_recording },
           {
             "filename",
-            file_status = true,
+            file_status = false,
+            path = 1,
             symbols = {
               modified = "●",
               readonly = "",
@@ -102,26 +118,15 @@ return {
               newfile = "",
             },
           },
-          -- { require("mphung97.fancy_cwd") },
-          {
-            function()
-              return require("nvim-navic").get_location()
-            end,
-            cond = function()
-              return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-            end,
-          },
-        },
-        lualine_x = {
-          { show_macro_recording },
-          "diagnostics",
-          {
-            "diff",
-            symbols = { added = " ", modified = " ", removed = " " },
-          },
-          { "searchcount", maxcount = 999, timeout = 500 },
+
+          -- "diagnostics",
+          -- {
+          --   "diff",
+          --   symbols = { added = " ", modified = " ", removed = " " },
+          -- },
+          -- { "searchcount", maxcount = 999, timeout = 500 },
           -- { "location", padding = { left = 0, right = 1 } },
-          { "encoding" },
+          -- { "encoding" },
         },
         lualine_y = {
           -- { "mode" },
@@ -305,76 +310,11 @@ return {
             return label
           end
 
-          local function get_mode()
-            local label = {}
-            local mode_code = vim.api.nvim_get_mode().mode
-            -- copy from lualine https://github.com/nvim-lualine/lualine.nvim/blob/master/lua/lualine/utils/mode.lua
-            local mode_map = {
-              ["n"] = "NORMAL",
-              ["no"] = "O-PENDING",
-              ["nov"] = "O-PENDING",
-              ["noV"] = "O-PENDING",
-              ["no\22"] = "O-PENDING",
-              ["niI"] = "NORMAL",
-              ["niR"] = "NORMAL",
-              ["niV"] = "NORMAL",
-              ["nt"] = "NORMAL",
-              ["ntT"] = "NORMAL",
-              ["v"] = "VISUAL",
-              ["vs"] = "VISUAL",
-              ["V"] = "V-LINE",
-              ["Vs"] = "V-LINE",
-              ["\22"] = "V-BLOCK",
-              ["\22s"] = "V-BLOCK",
-              ["s"] = "SELECT",
-              ["S"] = "S-LINE",
-              ["\19"] = "S-BLOCK",
-              ["i"] = "INSERT",
-              ["ic"] = "INSERT",
-              ["ix"] = "INSERT",
-              ["R"] = "REPLACE",
-              ["Rc"] = "REPLACE",
-              ["Rx"] = "REPLACE",
-              ["Rv"] = "V-REPLACE",
-              ["Rvc"] = "V-REPLACE",
-              ["Rvx"] = "V-REPLACE",
-              ["c"] = "COMMAND",
-              ["cv"] = "EX",
-              ["ce"] = "EX",
-              ["r"] = "REPLACE",
-              ["rm"] = "MORE",
-              ["r?"] = "CONFIRM",
-              ["!"] = "SHELL",
-              ["t"] = "TERMINAL",
-            }
-
-            local icon_map = {
-              ["NORMAL"] = "󰬕",
-              ["INSERT"] = "󰬐",
-              ["VISUAL"] = "󰬝",
-              ["REPLACE"] = "󰬙",
-              ["TERMINAL"] = "󰬛",
-              ["COMMAND"] = "󰬊"
-            }
-
-            -- if mode_map[mode_code] ~= nil then
-            if icon_map[mode_map[mode_code]] ~= nil then
-              -- table.insert(label, { string.sub(mode_map[mode_code], 1, 1) })
-              table.insert(label, { icon_map[mode_map[mode_code]] })
-            else
-              table.insert(label, { mode_code })
-            end
-            table.insert(label, { "  " })
-
-            return label
-          end
-
           local bg_color = "#000000"
 
           return {
             { "█", guifg = bg_color },
             {
-              { get_mode() },
               { get_diagnostic_label() },
               { get_git_diff() },
               { get_harpoon_items() },
