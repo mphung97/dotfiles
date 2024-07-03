@@ -313,7 +313,7 @@ return {
           local bg_color = "#000000"
 
           return {
-            { "█", guifg = bg_color },
+            { "██", guifg = bg_color },
             {
               { get_diagnostic_label() },
               { get_git_diff() },
@@ -322,7 +322,7 @@ return {
               { get_location() },
               guibg = bg_color,
             },
-            { "█", guifg = bg_color },
+            { "██", guifg = bg_color },
           }
         end,
       })
