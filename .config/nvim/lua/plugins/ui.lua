@@ -80,14 +80,20 @@ return {
           --     mac = "",
           --   },
           -- },
+          -- {
+          --   "mode",
+          --   fmt = function(str)
+          --     return string.lower(str):sub(1, 1)
+          --   end,
+          -- },
+        },
+        lualine_b = {
           {
             "mode",
             fmt = function(str)
-              return string.lower(str):sub(1, 1)
+              return string.lower(str)
             end,
           },
-        },
-        lualine_b = {
           -- {
           --   "filetype",
           --   icon_only = false,
@@ -95,7 +101,6 @@ return {
           -- },
         },
         lualine_c = {
-          { "branch", icon = { "", color = { fg = "#e84855" } } },
           -- {
           --   function()
           --     return require("nvim-navic").get_location()
@@ -106,6 +111,7 @@ return {
           -- },
         },
         lualine_x = {
+          { "branch", icon = { "", color = { fg = "#e84855" } } },
           { show_macro_recording },
           {
             "filename",
