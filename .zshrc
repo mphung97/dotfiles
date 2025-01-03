@@ -128,6 +128,7 @@ alias ll="ls -alF"
 alias lt="eza --tree --icons -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
 alias gg="lazygit"
 alias v="fd --type f --hidden --exclude .git | fzf-tmux -p 80%,60% --reverse | xargs nvim"
+# alias v="nvim"
 
 export LANG=en_US.UTF-8
 
@@ -147,7 +148,6 @@ export FZF_DEFAULT_OPTS="
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-
 # bun completions
 [ -s "/home/mphung97/.bun/_bun" ] && source "/home/mphung97/.bun/_bun"
 
@@ -155,10 +155,13 @@ source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+
 # pnpm
-export PNPM_HOME="/home/mphung97/.local/share/pnpm"
+export PNPM_HOME="/Users/phungphan/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+export TERM=xterm-256color

@@ -1,0 +1,11 @@
+[include]
+  path = ~/.gitconfig.monorepo
+[user]
+  email = mphung97@github.com
+  name = mphung97
+[core]
+  pager = diff-so-fancy | less --tabs=4 -RFX
+[interactive]
+  diffFilter = diff-so-fancy --patch
+[alias]
+  tree = log --color --graph --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset'

@@ -1,42 +1,33 @@
 add_newline = true
 command_timeout = 1000
 
-format = """$env_var$os$username$hostname$kubernetes$directory$git_branch$git_status
+format = """
+$env_var\
+$os\
+$username\
+$hostname\
+$kubernetes\
+$directory\
+$git_branch\
+$git_status\
 $character
 """
 
-[character]
-success_symbol = "╰─"
-error_symbol = "╰─"
-vimcmd_symbol = "╰─"
-# ╭╴ ╰─
 # [character]
-# success_symbol = "[](green)"
-# error_symbol = "[](red)"
-# vimcmd_symbol = "[](blue)"
+# success_symbol = "╰─"
+# error_symbol = "╰─"
+# vimcmd_symbol = "╰─"
 
-[env_var]
-symbol = "╭╴"
-variable = 'SHELL'
-format = "$symbol"
-disabled = false
+[character]
+success_symbol = ""
+error_symbol = ""
+vimcmd_symbol = ""
 
-# add_newline = false
-# A minimal left prompt
-# format = """
-# $username\
-# $hostname\
-# $directory\
-# $git_branch\
-# $git_state\
-# $git_status\
-# $cmd_duration\
-# $line_break\
-# $character"""
-
-# palette = "catppuccin_mocha"
-# move the rest of the prompt to the right
-# right_format = """$all"""
+# [env_var]
+# symbol = "╭╴"
+# variable = 'SHELL'
+# format = "$symbol"
+# disabled = false
 
 [os]
 format = "[$symbol](bold white)" 
@@ -85,6 +76,17 @@ symbol = " "
 
 [git_branch]
 symbol = " "
+
+[git_status]
+format = "[[( $conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
+style = "cyan"
+conflicted = " "
+untracked = " "
+modified = "󰙏 "
+staged = "󰄵 "
+renamed = "󱀱 "
+deleted = " "
+stashed = " "
 
 [golang]
 symbol = " "
@@ -152,7 +154,8 @@ HardenedBSD = "󰞌 "
 Illumos = "󰈸 "
 Kali = " "
 Linux = " "
-Mabox = " "
+Mabox = "📦 "
+# Macos = "📦 "
 Macos = " "
 Manjaro = " "
 Mariner = " "
@@ -248,25 +251,9 @@ crust = "#11111b"
 # [█](fg:color_yellow bg:color_aqua)\
 # $git_branch\
 # $git_status\
-# [█](fg:color_aqua bg:color_blue)\
-# $c\
-# $rust\
-# $golang\
-# $nodejs\
-# $php\
-# $java\
-# $kotlin\
-# $haskell\
-# $python\
-# [█](fg:color_blue bg:color_bg3)\
-# $docker_context\
-# $conda\
-# [█](fg:color_bg3 bg:color_bg1)\
-# $time\
-# [█ ](fg:color_bg1)\
-# $line_break$character"""
+# \n$character"""
 #
-# palette = 'catppuccin_mocha'
+# palette = 'gruvbox_dark'
 #
 # [palettes.gruvbox_dark]
 # color_fg0 = '#fbf1c7'
@@ -430,3 +417,4 @@ crust = "#11111b"
 # vimcmd_replace_one_symbol = '[](bold fg:color_purple)'
 # vimcmd_replace_symbol = '[](bold fg:color_purple)'
 # vimcmd_visual_symbol = '[](bold fg:color_yellow)'
+
