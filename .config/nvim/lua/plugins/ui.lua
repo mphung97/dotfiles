@@ -295,7 +295,7 @@ return {
 
             table.insert(label, { (ft_icon or "") .. " ", guifg = ft_color, guibg = "none" })
             table.insert(label, { filename, gui = vim.bo[props.buf].modified and "bold,italic" or "bold" })
-            table.insert(label, { vim.bo[props.buf].modified and " " or "", guifg = "#ffe066" })
+            table.insert(label, { vim.bo[props.buf].modified and " " or "", guifg = "#ffe066" })
             if not props.focused then
               label["group"] = "BufferInactive"
             end
@@ -309,10 +309,37 @@ return {
             local col = vim.fn.virtcol(".")
             local location = string.format("%2d:%-2d", line, col)
 
-            table.insert(label, { "  " })
+            table.insert(label, { " | " })
             table.insert(label, { location .. " " })
             table.insert(label, { "", guifg = "#e84855" })
 
+            return label
+          end
+
+          local function get_buffer_count()
+            -- Initialize the label table
+            local label = {}
+
+            -- Function to count open and listed buffers
+            local function count_buffers()
+              local buffers = vim.api.nvim_list_bufs()
+              local open_buffers = 0
+              for _, buf in ipairs(buffers) do
+                if vim.api.nvim_buf_is_loaded(buf) and vim.fn.buflisted(buf) == 1 then
+                  open_buffers = open_buffers + 1
+                end
+              end
+              return open_buffers
+            end
+
+            -- Get the count of buffers
+            local buffer_count = count_buffers()
+
+            -- Insert the components into the label table
+            table.insert(label, { " " .. buffer_count }) -- Buffer count
+            table.insert(label, { " | " }) -- Icon
+
+            -- Return the label table
             return label
           end
 
@@ -321,9 +348,10 @@ return {
           return {
             { "██", guifg = bg_color },
             {
-              { get_diagnostic_label() },
-              { get_git_diff() },
-              { get_harpoon_items() },
+              -- { get_diagnostic_label() },
+              -- { get_git_diff() },
+              -- { get_harpoon_items() },
+              { get_buffer_count() },
               { get_file_name() },
               { get_location() },
               guibg = bg_color,

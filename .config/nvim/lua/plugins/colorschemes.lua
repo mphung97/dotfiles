@@ -12,12 +12,12 @@ return {
       transparent_background = false,
       color_overrides = {
         mocha = {
-          red = "#e84855",
-          blue = "#5677fc",
+          -- red = "#e84855",
+          -- blue = "#5677fc",
           pink = "#ff5d8f",
           peach = "#f0aa85",
           yellow = "#ffe066",
-          green = "#23d18c",
+          -- green = "#23d18c",
           sapphire = "#00cecb",
           lavender = "#e0def4",
           text = "#e0def4",
@@ -69,7 +69,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "moonfly",
+      colorscheme = "catppuccin",
     },
   },
 }
