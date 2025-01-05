@@ -272,14 +272,14 @@ $time\
 \n$character\
 """
 
-palette = "rose-pine-moon"
+palette = "rose-pine"
 
-[palettes.rose-pine-moon]
-overlay = '#393552'
+[palettes.rose-pine]
+overlay = '#26233a'
 love = '#eb6f92'
 gold = '#f6c177'
-rose = '#ea9a97'
-pine = '#3e8fb0'
+rose = '#ebbcba'
+pine = '#31748f'
 foam = '#9ccfd8'
 iris = '#c4a7e7'
 
@@ -289,7 +289,7 @@ error_symbol = "[](bold fg:foam)"
 vimcmd_symbol = "[](bold fg:foam)"
 
 [directory]
-format = "[█](fg:overlay)[ $path ]($style)[█](fg:overlay) "
+format = "[█](fg:overlay)[  $path ]($style)[█](fg:overlay) "
 style = "bg:overlay fg:pine"
 truncation_length = 1
 # truncation_symbol = "…/"
@@ -312,17 +312,18 @@ symbol = ""
 [git_status]
 disabled = false
 style = "bg:overlay fg:love"
-format = '[█](fg:overlay)([$all_status$ahead_behind]($style))[█](fg:overlay) '
-up_to_date = '[ ✓ ](bg:overlay fg:iris)'
-untracked = '[?\($count\)](bg:overlay fg:gold)'
-stashed = '[\$](bg:overlay fg:iris)'
-modified = '[!\($count\)](bg:overlay fg:gold)'
-renamed = '[»\($count\)](bg:overlay fg:iris)'
-deleted = '[✘\($count\)](style)'
-staged = '[++\($count\)](bg:overlay fg:gold)'
-ahead = '[⇡\(${count}\)](bg:overlay fg:foam)'
+format = '[█](fg:overlay)([  $conflicted$untracked$modified$staged$renamed$deleted$ahead_behind$stashed]($style))[█](fg:overlay) '
+up_to_date = '[✓](bg:overlay fg:iris)'
+untracked = '[](bg:overlay fg:gold)'
+stashed = '[≡](bg:overlay fg:iris)'
+modified = '[](bg:overlay fg:gold)'
+renamed = '[](bg:overlay fg:iris)'
+deleted = '[](style)'
+staged = '[](bg:overlay fg:gold)'
+ahead = '[⇡](bg:overlay fg:foam)'
 diverged = '⇕[\[](bg:overlay fg:iris)[⇡\(${ahead_count}\)](bg:overlay fg:foam)[⇣\(${behind_count}\)](bg:overlay fg:rose)[\]](bg:overlay fg:iris)'
-behind = '[⇣\(${count}\)](bg:overlay fg:rose)'
+behind = '[⇣](bg:overlay fg:rose)'
+conflicted = ''
 
 [time]
 disabled = false
