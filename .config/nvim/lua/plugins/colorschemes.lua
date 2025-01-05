@@ -66,10 +66,11 @@ return {
     },
   },
   { "bluz71/vim-moonfly-colors", name = "moonfly", lazy = false, priority = 1000 },
+  { "rose-pine/neovim", name = "rose-pine" },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin",
+      colorscheme = "rose-pine",
     },
   },
 }
