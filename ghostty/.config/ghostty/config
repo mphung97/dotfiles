@@ -1,0 +1,8 @@
+theme = rose-pine
+font-family = JetBrainsMono Nerd Font
+font-size = 22
+cursor-style = block
+window-padding-balance = true
+window-padding-x = 8
+window-padding-y = 0
+macos-titlebar-style = transparent

@@ -111,7 +111,7 @@ return {
           -- },
         },
         lualine_x = {
-          { "branch", icon = { "", color = { fg = "#e84855" } } },
+          -- { "branch", icon = { "", color = { fg = "#e84855" } } },
           { show_macro_recording },
           {
             "filename",
@@ -152,7 +152,7 @@ return {
           -- },
         },
         lualine_z = {
-          -- { "branch" },
+          { "branch", icon = "" },
         },
       }
 

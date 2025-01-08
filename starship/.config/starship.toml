@@ -268,7 +268,6 @@ $rust\
 $scala\
 $conda\
 $python\
-$time\
 \n$character\
 """
 
@@ -312,9 +311,9 @@ symbol = ""
 [git_status]
 disabled = false
 style = "bg:overlay fg:love"
-format = '[█](fg:overlay)([  $conflicted$untracked$modified$staged$renamed$deleted$ahead_behind$stashed]($style))[█](fg:overlay) '
+format = '[█](fg:overlay)([ 󱖫 $conflicted$untracked$modified$staged$renamed$deleted$ahead_behind$stashed ]($style))[█](fg:overlay) '
 up_to_date = '[✓](bg:overlay fg:iris)'
-untracked = '[](bg:overlay fg:gold)'
+untracked = '[](bg:overlay fg:gold)'
 stashed = '[≡](bg:overlay fg:iris)'
 modified = '[](bg:overlay fg:gold)'
 renamed = '[](bg:overlay fg:iris)'
