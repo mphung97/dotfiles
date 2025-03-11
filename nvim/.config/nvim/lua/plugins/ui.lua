@@ -34,6 +34,18 @@ return {
         end,
       })
 
+      local function buffer_count()
+        local buffers = vim.api.nvim_list_bufs()
+        local open_buffers = 0
+        for _, buf in ipairs(buffers) do
+          if vim.api.nvim_buf_is_loaded(buf) and vim.fn.buflisted(buf) == 1 then
+            open_buffers = open_buffers + 1
+          end
+        end
+
+        return " " .. open_buffers
+      end
+
       vim.api.nvim_create_autocmd("RecordingLeave", {
         callback = function()
           local timer = vim.loop.new_timer()
@@ -51,7 +63,7 @@ return {
 
       opts.options = {
         icons_enabled = true,
-        theme = "catppuccin",
+        theme = "rose-pine",
         component_separators = { left = "", right = "│" },
         section_separators = { left = "", right = "" },
         disabled_filetypes = {
@@ -90,8 +102,8 @@ return {
         lualine_b = {
           {
             "mode",
-            fmt = function(str)
-              return string.lower(str)
+            fmt = function(mode)
+              return string.upper(string.sub(mode, 1, 3))
             end,
           },
           -- {
@@ -101,6 +113,17 @@ return {
           -- },
         },
         lualine_c = {
+          {
+            "filename",
+            file_status = true,
+            path = 4,
+            symbols = {
+              modified = "●",
+              readonly = "",
+              unnamed = "[No Name]",
+              newfile = "",
+            },
+          },
           -- {
           --   function()
           --     return require("nvim-navic").get_location()
@@ -113,25 +136,29 @@ return {
         lualine_x = {
           -- { "branch", icon = { "", color = { fg = "#e84855" } } },
           { show_macro_recording },
-          {
-            "filename",
-            file_status = false,
-            path = 1,
-            symbols = {
-              modified = "●",
-              readonly = "",
-              unnamed = "[No Name]",
-              newfile = "",
-            },
-          },
-
+          -- {
+          --   "filename",
+          --   file_status = false,
+          --   path = 1,
+          --   symbols = {
+          --     modified = "●",
+          --     readonly = "",
+          --     unnamed = "[No Name]",
+          --     newfile = "",
+          --   },
+          -- },
           -- "diagnostics",
           -- {
           --   "diff",
           --   symbols = { added = " ", modified = " ", removed = " " },
           -- },
-          -- { "searchcount", maxcount = 999, timeout = 500 },
-          -- { "location", padding = { left = 0, right = 1 } },
+          { "searchcount", maxcount = 999, timeout = 500 },
+          { buffer_count },
+          {
+            "location",
+            icon = { "", color = { fg = "#e84855" }, align = "right" },
+            padding = { left = 1, right = 0 },
+          },
           -- { "encoding" },
         },
         lualine_y = {
@@ -151,9 +178,7 @@ return {
           --   section_separators = { left = "", right = "█" },
           -- },
         },
-        lualine_z = {
-          { "branch", icon = "" },
-        },
+        lualine_z = {},
       }
 
       opts.tabline = {}
@@ -208,7 +233,7 @@ return {
   },
   {
     "b0o/incline.nvim",
-    enabled = true,
+    enabled = false,
     dependencies = {
       "SmiteshP/nvim-navic",
       "nvim-tree/nvim-web-devicons", -- optional dependency
