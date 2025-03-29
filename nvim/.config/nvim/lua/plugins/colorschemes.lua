@@ -9,7 +9,7 @@ return {
         dark = "mocha",
       },
       term_colors = true,
-      transparent_background = false,
+      transparent_background = true,
       color_overrides = {
         mocha = {
           -- red = "#e84855",
@@ -66,11 +66,21 @@ return {
     },
   },
   { "bluz71/vim-moonfly-colors", name = "moonfly", lazy = false, priority = 1000 },
-  { "rose-pine/neovim", name = "rose-pine" },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    opts = {
+      styles = {
+        bold = true,
+        italic = true,
+        transparency = true,
+      },
+    },
+  },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "rose-pine",
+      colorscheme = "catppuccin",
     },
   },
 }

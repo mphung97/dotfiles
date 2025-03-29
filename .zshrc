@@ -127,8 +127,8 @@ alias ls="eza --icons -F -H --group-directories-first --git -1"
 alias ll="ls -alF"
 alias lt="eza --tree --icons -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
 alias gg="lazygit"
-alias v="fd --type f --hidden --exclude .git | fzf-tmux -p 80%,60% --reverse | xargs nvim"
-# alias v="nvim"
+# alias v="fd --type f --hidden --exclude .git | fzf-tmux -p 80%,60% --reverse | xargs nvim"
+alias v="nvim"
 
 export LANG=en_US.UTF-8
 
