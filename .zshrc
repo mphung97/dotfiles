@@ -1,3 +1,10 @@
+# OPENSPEC:START
+# OpenSpec shell completions configuration
+fpath=("/Users/phungphan/.zsh/completions" $fpath)
+autoload -Uz compinit
+compinit
+# OPENSPEC:END
+
 # initialize apps
 # brew
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -129,6 +136,8 @@ alias lt="eza --tree --icons -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoi
 alias gg="lazygit"
 # alias v="fd --type f --hidden --exclude .git | fzf-tmux -p 80%,60% --reverse | xargs nvim"
 alias v="nvim"
+alias laws='docker run --network localstack --rm -it -v ~/.aws:/root/.aws amazon/aws-cli --endpoint-url=http://localstack:4566'
+alias ld='lazydocker'
 
 export LANG=en_US.UTF-8
 
@@ -155,7 +164,6 @@ source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-
 # pnpm
 export PNPM_HOME="/Users/phungphan/Library/pnpm"
 case ":$PATH:" in
@@ -163,5 +171,12 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# mobile
+# export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 export TERM=xterm-256color
